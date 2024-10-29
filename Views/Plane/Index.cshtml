@@ -1,0 +1,26 @@
+﻿@model List<PlaneModel>
+
+@{
+    ViewData["Title"] = "Planes";
+}
+
+<h1>Planes</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">mark</th>
+            <th scope="col">number_of_seats</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var plane in Model)
+        {
+            <tr>
+                    <th scope="row">@plane.id</th>
+                    <td>@plane.mark</td>
+                    <td>@plane.number_of_seats</td>
+            </tr>
+        }
+    </tbody>
+</table>

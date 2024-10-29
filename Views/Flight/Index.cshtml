@@ -1,0 +1,32 @@
+﻿@model List<FlightModel>
+
+@{
+    ViewData["Title"] = "Flights";
+}
+
+<h1>Flights</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">start_time</th>
+            <th scope="col">route_id</th>
+            <th scope="col">pilot_id</th>
+            <th scope="col">plane_id</th>
+            <th scope="col">passenger_count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var flight in Model)
+        {
+            <tr>
+                    <th scope="row">@flight.id</th>
+                    <td>@flight.start_time.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    <td>@flight.route_id</td>
+                    <td>@flight.pilot_id.ToString()</td>
+                    <td>@flight.plane_id</td>
+                    <td>@flight.passenger_count</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,28 @@
+﻿@model List<PilotModel>
+
+@{
+    ViewData["Title"] = "Pilots";
+}
+
+<h1>Pilots</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">surname</th>
+            <th scope="col">full_name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pilot in Model)
+        {
+            <tr>
+                    <th scope="row">@pilot.id</th>
+                    <td>@pilot.name</td>
+                    <td>@pilot.surname</td>
+                    <td>@pilot.full_name</td>
+            </tr>
+        }
+    </tbody>
+</table>

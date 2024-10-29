@@ -1,0 +1,26 @@
+﻿@model List<RouteModel>
+
+@{
+    ViewData["Title"] = "Routes";
+}
+
+<h1>Routes</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">direction</th>
+            <th scope="col">distance</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var route in Model)
+        {
+            <tr>
+                    <th scope="row">@route.id</th>
+                    <td>@route.direction</td>
+                    <td>@route.distance</td>
+            </tr>
+        }
+    </tbody>
+</table>
