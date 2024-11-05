@@ -1,19 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using Program.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace Program.Controllers
 {
     public class PilotController : Controller
     {
+        private readonly string _connectionString;
+
+        public PilotController(IConfiguration configuration)
+        {
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
+        }
+
         public IActionResult Index()
         {
-            var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.Development.json").Build();
             List<PilotModel> pilotList = new List<PilotModel>();
-            using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
                 connection.Open();
-                var command = new NpgsqlCommand("select * from pilots", connection);
+                var command = new NpgsqlCommand("SELECT * FROM pilots", connection);
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -29,6 +36,46 @@ namespace Program.Controllers
                 connection.Close();
             }
             return View(pilotList);
+        }
+
+        // GET: Pilot/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Pilot/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(PilotModel pilot)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var connection = new NpgsqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    var command = new NpgsqlCommand("INSERT INTO pilots (id, name, surname) VALUES (@id, @name, @surname)", connection);
+                    command.Parameters.AddWithValue("@id", Guid.NewGuid()); // Генерация нового UUID
+                    command.Parameters.AddWithValue("@name", pilot.name);
+                    command.Parameters.AddWithValue("@surname", pilot.surname);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(pilot);
+        }
+        public IActionResult Delete(Guid id)
+        {
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                connection.Open();
+                var command = new NpgsqlCommand("DELETE FROM pilots WHERE id = @id", connection);
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }

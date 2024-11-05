@@ -5,6 +5,7 @@
 }
 
 <h1>Routes</h1>
+<a asp-action="Create" class="btn btn-primary">Add New Route</a>
 <table class="table">
     <thead>
         <tr>
@@ -16,11 +17,14 @@
     <tbody>
         @foreach (var route in Model)
         {
-            <tr>
+                <tr>
                     <th scope="row">@route.id</th>
                     <td>@route.direction</td>
                     <td>@route.distance</td>
-            </tr>
+                          <td>
+                                            <a asp-action="Delete" asp-route-id="@route.id" class="btn btn-danger">Delete</a>
+                                    </td>
+                </tr>
         }
     </tbody>
 </table>

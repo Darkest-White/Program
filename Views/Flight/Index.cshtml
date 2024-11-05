@@ -5,6 +5,9 @@
 }
 
 <h1>Flights</h1>
+
+<a asp-action="Create" class="btn btn-success">Add New Flight</a>
+
 <table class="table">
     <thead>
         <tr>
@@ -26,6 +29,9 @@
                     <td>@flight.pilot_id.ToString()</td>
                     <td>@flight.plane_id</td>
                     <td>@flight.passenger_count</td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@flight.id" class="btn btn-danger">Delete</a>
+                        </td>
             </tr>
         }
     </tbody>

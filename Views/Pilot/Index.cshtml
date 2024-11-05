@@ -5,6 +5,9 @@
 }
 
 <h1>Pilots</h1>
+
+<a asp-action="Create" class="btn btn-primary">Add New Pilot</a>
+
 <table class="table">
     <thead>
         <tr>
@@ -22,6 +25,9 @@
                     <td>@pilot.name</td>
                     <td>@pilot.surname</td>
                     <td>@pilot.full_name</td>
+                         <td>
+                                        <a asp-action="Delete" asp-route-id="@pilot.id" class="btn btn-danger">Delete</a>
+                                </td>
             </tr>
         }
     </tbody>

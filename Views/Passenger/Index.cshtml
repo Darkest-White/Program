@@ -5,6 +5,9 @@
 }
 
 <h1>Passengers</h1>
+
+<a asp-action="Create" class="btn btn-success">Add New Passenger</a>
+
 <table class="table">
     <thead>
         <tr>
@@ -18,13 +21,16 @@
     <tbody>
         @foreach (var passenger in Model)
         {
-            <tr>
+                <tr>
                     <th scope="row">@passenger.id</th>
                     <td>@passenger.name</td>
                     <td>@passenger.surname</td>
                     <td>@passenger.flight_id</td>
                     <td>@passenger.full_name</td>
-            </tr>
+                             <td>
+                                    <a asp-action="Delete" asp-route-id="@passenger.id" class="btn btn-danger">Delete</a>
+                            </td>
+                </tr>
         }
     </tbody>
 </table>

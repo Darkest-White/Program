@@ -1,0 +1,28 @@
+﻿@model PlaneModel
+
+@{
+    ViewData["Title"] = "Create Plane";
+}
+
+<h1>Create Plane</h1>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label asp-for="mark" class="control-label"></label>
+        <input asp-for="mark" class="form-control" />
+        <span asp-validation-for="mark" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="number_of_seats" class="control-label"></label>
+        <input asp-for="number_of_seats" class="form-control" />
+        <span asp-validation-for="number_of_seats" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

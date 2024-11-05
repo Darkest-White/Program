@@ -5,22 +5,30 @@
 }
 
 <h1>Planes</h1>
+
+<div>
+    <a asp-action="Create" class="btn btn-primary mb-3">Add New Plane</a>
+</div>
+
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">id</th>
-            <th scope="col">mark</th>
-            <th scope="col">number_of_seats</th>
+            <th scope="col">ID</th>
+            <th scope="col">Mark</th>
+            <th scope="col">Number of Seats</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var plane in Model)
         {
-            <tr>
+                <tr>
                     <th scope="row">@plane.id</th>
                     <td>@plane.mark</td>
                     <td>@plane.number_of_seats</td>
-            </tr>
+                          <td>
+                                            <a asp-action="Delete" asp-route-id="@plane.id" class="btn btn-danger">Delete</a>
+                                    </td>
+                </tr>
         }
     </tbody>
 </table>
