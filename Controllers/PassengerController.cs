@@ -18,6 +18,7 @@ namespace Program.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Flights = GetFlights();
             List<PassengerModel> passengerList = new List<PassengerModel>();
             using (var connection = new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
@@ -90,6 +91,31 @@ namespace Program.Controllers
             // Если модель невалидна, возвращаем список flight_id обратно в представление
             ViewBag.FlightIds = GetAvailableFlightIds();
             return View(model);
+        }
+
+        private List<FlightModel> GetFlights()
+        {
+            List<FlightModel> flights = new List<FlightModel>();
+            using (var connection = new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+                var command = new NpgsqlCommand("SELECT * FROM flights", connection);
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    flights.Add(new FlightModel
+                    {
+                        id = reader.GetInt32(0),
+                        start_time = reader.GetDateTime(1),
+                        route_id = reader.GetInt32(2),
+                        pilot_id = reader.GetGuid(3),
+                        plane_id = reader.GetInt32(4),
+                        passenger_count = reader.GetInt32(5)
+                    });
+                }
+                connection.Close();
+            }
+            return flights;
         }
 
         // POST: Flight/Delete/5

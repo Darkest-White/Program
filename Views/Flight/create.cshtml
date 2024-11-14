@@ -18,7 +18,7 @@
 			<option value=""> Select Route ID </option>
 			@foreach (var route in ViewBag.Routes)
 			{
-							<option value="@route.id">@route.id</option>
+							<option value="@route.id - @route.direction">@route.id - @route.direction</option>
 			}
 		</select>
 		<span asp-validation-for="route_id" class="text-danger"></span>
@@ -29,7 +29,7 @@
 			<option value="">Select Pilot ID</option>
 			@foreach (var pilot in ViewBag.Pilots)
 			{
-							<option value="@pilot.id">@pilot.id</option>
+							<option value="@pilot.id - @pilot.full_name">@pilot.id - @pilot.full_name</option>
 			}
 		</select>
 		<span asp-validation-for="pilot_id" class="text-danger"></span>
@@ -40,7 +40,7 @@
 			<option value="">Select Plane ID</option>
 			@foreach (var plane in ViewBag.Planes)
 			{
-						<option value="@plane.id">@plane.id</option>
+						<option value="@plane.id - @plane.mark">@plane.id - @plane.mark</option>
 			}
 		</select>
 		<span asp-validation-for="plane_id" class="text-danger"></span>

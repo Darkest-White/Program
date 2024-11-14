@@ -20,14 +20,33 @@
         </tr>
     </thead>
     <tbody>
+        
         @foreach (var flight in Model)
         {
             <tr>
                     <th scope="row">@flight.id</th>
                     <td>@flight.start_time.ToString("yyyy-MM-dd HH:mm:ss")</td>
-                    <td>@flight.route_id</td>
-                    <td>@flight.pilot_id.ToString()</td>
-                    <td>@flight.plane_id</td>
+                @foreach (var route in ViewBag.Routes)
+                {
+                    if (route.id == flight.route_id)
+                    {
+                        <td>@flight.route_id.ToString() - @route.direction</td>
+                    }
+                }
+                @foreach (var pilot in ViewBag.Pilots)
+                {
+                    if (pilot.id == flight.pilot_id)
+                    {
+                        <td>@flight.pilot_id.ToString() - @pilot.full_name</td>
+                    }
+                }
+                @foreach (var plane in ViewBag.Planes)
+                {
+                    if (plane.id == flight.plane_id)
+                    {
+                        <td>@flight.plane_id.ToString() - @plane.mark</td>
+                    }
+                }
                     <td>@flight.passenger_count</td>
                         <td>
                             <a asp-action="Delete" asp-route-id="@flight.id" class="btn btn-danger">Delete</a>

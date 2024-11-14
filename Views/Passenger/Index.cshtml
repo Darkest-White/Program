@@ -25,7 +25,13 @@
                     <th scope="row">@passenger.id</th>
                     <td>@passenger.name</td>
                     <td>@passenger.surname</td>
-                    <td>@passenger.flight_id</td>
+                @foreach (var flight in ViewBag.Flights)
+                {
+                    if (flight.id == passenger.flight_id)
+                    {
+                                    <td>@passenger.flight_id.ToString() - @flight.start_time</td>
+                    }
+                }
                     <td>@passenger.full_name</td>
                              <td>
                                     <a asp-action="Delete" asp-route-id="@passenger.id" class="btn btn-danger">Delete</a>

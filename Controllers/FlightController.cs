@@ -17,6 +17,9 @@ namespace Program.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Pilots = GetPilots();
+            ViewBag.Routes = GetRoutes();
+            ViewBag.Planes = GetPlanes();
             List<FlightModel> flightList = new List<FlightModel>();
             using (var connection = new NpgsqlConnection(_connectionString))
             {
@@ -109,13 +112,14 @@ namespace Program.Controllers
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 connection.Open();
-                var command = new NpgsqlCommand("SELECT id FROM routes", connection);
+                var command = new NpgsqlCommand("SELECT * FROM routes", connection);
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     routes.Add(new RouteModel
                     {
                         id = reader.GetInt32(0),
+                        direction = reader.GetString(1)
                     });
                 }
                 connection.Close();
@@ -129,13 +133,14 @@ namespace Program.Controllers
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 connection.Open();
-                var command = new NpgsqlCommand("SELECT id FROM planes", connection);
+                var command = new NpgsqlCommand("SELECT * FROM planes", connection);
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     planes.Add(new PlaneModel
                     {
                         id = reader.GetInt32(0),
+                        mark = reader.GetString(1)  
                     });
                 }
                 connection.Close();
